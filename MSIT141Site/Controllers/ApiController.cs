@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MSIT141Site.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,12 @@ namespace MSIT141Site.Controllers
 {
     public class ApiController : Controller
     {
-        public IActionResult Index(string name,int age=0)
+        public IActionResult Index(User user)
         {
-            if (string.IsNullOrEmpty(name))
-                name = "Ajax";
-            return Content($"Hello {name}你好，年紀是{age}!!", "text/plain", System.Text.Encoding.UTF8);
+            //System.Threading.Thread.Sleep(5000); //停止5秒鐘
+            if (string.IsNullOrEmpty(user.name))
+                user.name = "Ajax";
+            return Content($"Hello {user.name}你好，年紀是{user.age}，電子郵件是{user.email}!!", "text/plain", System.Text.Encoding.UTF8);
         }
     }
 }
