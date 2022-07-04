@@ -12,5 +12,13 @@ namespace MSIT141Site.Controllers
         {
             return View();
         }
+        public IActionResult HW02_Register()
+        {   //註冊會員=>帳號是否存在檢查
+            //製作會員註冊頁面
+            //使用者輸入姓名後，透過Ajax技術將姓名送到伺服器端
+            //伺服器端收到後，到資料庫檢查資料是否存在，將結果回傳到Client端
+            //Client端根據收到的結果顯示帳號是否存在的訊息
+            return View();
+        }
     }
 }

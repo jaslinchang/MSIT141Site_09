@@ -6,7 +6,8 @@
 <h1>HW01</h1>
 
 
-<button class="btn btn-primary mb-3" type="button" id="buttonClick">Create</button>
+<button class="btn btn-primary mb-3" type="button" id="buttonClick">JavaScript</button>
+<button class="btn btn-primary mb-3" type="button" id="buttonClick2">jQuery</button>
 
 <div id="iddiv">
     <table class="table table-striped table-hover" id="idtable">
@@ -16,17 +17,18 @@
 @section Scripts
 {
     <script>
+        var emp = {
+            "employees": [
+                { "name": "Tom", "workYears": 3, "salary": 35000 },
+                { "name": "Jack", "workYears": 5, "salary": 40000 },
+                { "name": "Mary", "workYears": 7, "salary": 45000 }
+            ]
+        };
 
+        //JS
         document.querySelector("#buttonClick").addEventListener("click", CreateTable);
         function CreateTable() {
-            var emp = {
-                "employees": [
-                    { "name": "Tom", "workYears": 3, "salary": 35000 },
-                    { "name": "Jack", "workYears": 5, "salary": 40000 },
-                    { "name": "Mary", "workYears": 7, "salary": 45000 }
-                ]
-            };
-
+            document.querySelector("#idtable").innerHTML = "";
             Add("Name", "WorkYears", "Salary");
 
             emp.employees.forEach(employees => {
@@ -35,7 +37,7 @@
             })
         }
 
-        function Add(name, workYears, salary ) {
+        function Add(name, workYears, salary) {
             let theTable = document.querySelector("#idtable");
             let eletr = document.createElement("tr");
             let eletdn = document.createElement("td");
@@ -55,7 +57,20 @@
             theTable.appendChild(eletr);
         }
 
+        //jQuery
+        $("#buttonClick2").on("click", function () {
+            $("#idtable").empty();
+            $.each(emp.employees, (index, value) => {
+                const { name, workYears, salary } = value;
+                let eletr = $("<tr></tr>");
+                let eletdn = `<td>${name}</td>`;
+                let eletdw = `<td>${workYears}</td>`;
+                let eletds = `<td>${salary}</td>`;
+                eletr.append(eletdn, eletdw, eletds);
+                $("#idtable").append(eletr);
+            })
+
+        })
+
     </script>
-
-
 }

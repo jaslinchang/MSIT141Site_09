@@ -12,9 +12,9 @@
 
 @section Scripts{
     <script>
-       
+
         console.log("@Url.Action("Index","api")");
-        console.log("@Url.Content("~/api/index?name=eric")")     
+        console.log("@Url.Content("~/api/index?name=eric")")
         const btnStart = document.querySelector('#buttonStart');
         const btnStop = document.querySelector('#buttonStop');
         const divInfo = document.querySelector('#div1');
@@ -59,20 +59,23 @@
             })
 
 
-        //步驟二對伺服器端發出要求(Request)
-        //方法一
-        ////xhr.open("GET", "/api/index?name=Mary"); //就像是開啟瀏覽器輸入網址，在後面加上?=....
-        //xhr.open("GET", `/api/index?name=${txtName.value}&age=${txtAge.value}`);    //這邊只加/的話就會直接抓到api上，不會再連到home
-        ////"/"=>伺服器的根目錄
-        ////"~"=>Razer用來抓上一層ㄉ目錄
-        //xhr.send(); //按下Enter鍵才會真的去執行
-        //方法二
+            //步驟二對伺服器端發出要求(Request)
+            //方法一
+            ////xhr.open("GET", "/api/index?name=Mary"); //就像是開啟瀏覽器輸入網址，在後面加上?=....
+            //xhr.open("GET", `/api/index?name=${txtName.value}&age=${txtAge.value}`);    //這邊只加/的話就會直接抓到api上，不會再連到home
+            ////"/"=>伺服器的根目錄
+            ////"~"=>Razer用來抓上一層ㄉ目錄
+            //xhr.send(); //按下Enter鍵才會真的去執行
+
+
+            //方法二
             const url = "@Url.Content("~/api/index")";   // /api/index
             const params = `?name=${txtName.value}&age=${txtAge.value}`;
 
             xhr.open("GET", url + params);
-            xhr.timeout=3000;
-            xhr.send();
+            xhr.timeout = 3000; //3秒鐘伺服器沒有回傳結果就終止程式的執行
+            xhr.send(); //按下Enter鍵才會真的去執行
+
 
 
         })

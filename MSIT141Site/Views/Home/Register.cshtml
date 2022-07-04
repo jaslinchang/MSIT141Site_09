@@ -12,6 +12,7 @@
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="name">
+                <small id="emailHelp" class="form-text text-muted">帳號已存在</small>
             </div>
             <div class="form-group">
                 <label for="InputEmail">電子郵件</label>
@@ -37,7 +38,7 @@
 
     btnSubmit.addEventListener('click', (event) => {
         event.preventDefault(); //停止預設行為 submit link
-        const formData = new FormData(document.userInfo);
+        const formData = new FormData(document.userInfo);   //這樣可以抓到整個Form的資料
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
             const data = xhr.responseText;
@@ -51,5 +52,5 @@
 
     </script>
 
- }
+}
 

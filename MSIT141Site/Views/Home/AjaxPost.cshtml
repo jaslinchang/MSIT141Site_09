@@ -35,7 +35,7 @@
     const txtEmail = document.querySelector('#InputEmail');
     const txtAge = document.querySelector('#InputAge');
     const divInfo = document.querySelector('#div1');
-       
+
     btnSubmit.addEventListener('click', (evt) => {
         evt.preventDefault(); //停止預設行為 submit link
         //step1
@@ -51,7 +51,7 @@
         const params = `name=${txtName.value}&email=${txtEmail.value}&age=${txtAge.value}`;
         xhr.open('POST', '@Url.Content("~/api/index")');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send(params);
+        xhr.send(params);   //因為使用POST方法，所以要把要傳送的放在send裡面
     })
     </script>
 
