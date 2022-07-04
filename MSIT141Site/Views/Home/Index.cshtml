@@ -16,7 +16,21 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a></p>
 </div>
 
-<button class="btn btn-primary mb-3" type="button" id="buttonClick">Create</button>
+
+<button class="btn btn-primary mb-3" type="button" id="buttonClick">JavaScript</button>
+<button class="btn btn-primary mb-3" type="button" id="buttonClick2">jQuery</button>
+
+<table id="table1" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>WorkYears</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
 
 @section Scripts
@@ -30,14 +44,13 @@
         //按下按鈕 => click
         btn.addEventListener('click', () => {
             //要做甚麼事
-            //console.log("Hello");
             myH.textContent = "Welcome MVC!!";
             $('.display-4').text("Welcome MVC!!").css("background-color", "lightblue");
 
             //2.印出data資料
-            var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
-            { "name": "Jack", "workYears": 5, "salary": 40000 },
-            { "name": "Mary", "workYears": 7, "salary": 45000 }];
+            //var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+            //{ "name": "Jack", "workYears": 5, "salary": 40000 },
+            //{ "name": "Mary", "workYears": 7, "salary": 45000 }];
             //[{},{},{}]
             //array[index 0,1,2]
             //const emp = emps[1] //{ "name": "Jack", "workYears": 5, "salary": 40000 }
@@ -57,22 +70,64 @@
                     { "name": "Mary", "workYears": 7, "salary": 45000 }
                 ]
             };
-            for (let i = 0; i < emp.employees.length; i++) {
-                //console.log(emps[i].name)
-                //console.log(emps[i].workYears)
-                //console.log(emps[i].salary)
-            }
-            //用froeach寫
-            emp.employees.forEach(employees => {
-                const { name, workYears, salary } = employees;
-                console.log(name);
-                console.log(workYears);
-                console.log(salary);
+            //for (let i = 0; i < emp.employees.length; i++) {
+            //    console.log(emps[i].name)
+            //    console.log(emps[i].workYears)
+            //    console.log(emps[i].salary)
+            //}
+            ////用froeach寫
+            //emp.employees.forEach(employees => {
+            //    const { name, workYears, salary } = employees;
+            //    console.log(name);
+            //    console.log(workYears);
+            //    console.log(salary);
+            //})
+
+            //做表格-js寫法
+            const tb = document.querySelector('#table1>tbody');
+            let docFrag = document.createDocumentFragment();
+            tb.innerHTML = "";
+            emp.employees.forEach(employee => {
+                //解構賦值(Destructuring assignment)
+                const { name, workYears, salary } = employee;
+                const cell1 = document.createElement("td");
+                const txt1 = document.createTextNode(name);
+                cell1.appendChild(txt1);
+                const cell2 = document.createElement("td");
+                const txt2 = document.createTextNode(workYears);
+                cell2.appendChild(txt2);
+                const cell3 = document.createElement("td");
+                const txt3 = document.createTextNode(salary);
+                cell3.appendChild(txt3);
+                const row = document.createElement("tr");
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                row.appendChild(cell3);
+                docFrag.appendChild(row);
             })
+            tb.appendChild(docFrag);
         });
 
-        //jquery寫法
-        $("#buttonClick").on("click", function () {
+        // 印出資料-jquery寫法
+        //$("#buttonClick").on("click", function () {
+        //    var emp = {
+        //        "employees": [
+        //            { "name": "Tom", "workYears": 3, "salary": 35000 },
+        //            { "name": "Jack", "workYears": 5, "salary": 40000 },
+        //            { "name": "Mary", "workYears": 7, "salary": 45000 }
+        //        ]
+        //    };
+        //    $.each(emp.employees, (idx, employee) => {
+        //        const { name, workYears, salary } = employee
+        //        console.log(name)
+        //        console.log(workYears)
+        //        console.log(salary)
+        //    })
+        //})
+
+       
+        //表格--jQuery寫法
+        $('#buttonClick2').click(() => {
             var emp = {
                 "employees": [
                     { "name": "Tom", "workYears": 3, "salary": 35000 },
@@ -80,12 +135,23 @@
                     { "name": "Mary", "workYears": 7, "salary": 45000 }
                 ]
             };
+            //$.each(emp, function (key, value) {
+            //    console.log(key);
+            //})
+            let docFrag = $(document.createDocumentFragment());
             $.each(emp.employees, (idx, employee) => {
+                //console.log(idx)
                 const { name, workYears, salary } = employee
-                console.log(name)
-                console.log(workYears)
-                console.log(salary)
+                const cell1 = $('<td></td>').text(name);
+                const cell2 = $('<td></td>').text(workYears);
+                const cell3 = $('<td></td>').text(salary);
+                const row = $('<tr></tr>').append([cell1, cell2, cell3]);
+                docFrag.append(row);
+                //console.log(name)
+                //console.log(workYears)
+                //console.log(salary)
             })
+            $('#table1>tbody').html(docFrag);
         })
 
     </script>

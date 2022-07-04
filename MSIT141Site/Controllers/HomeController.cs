@@ -21,7 +21,12 @@ namespace MSIT141Site.Controllers
         public IActionResult Index()
         {
             return View();
-        }     
+        }
+
+        public IActionResult FirstAjax() 
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
