@@ -54,8 +54,6 @@ namespace MSIT141Site.Models
 
             modelBuilder.Entity<Member>(entity =>
             {
-                entity.Property(e => e.MemberId).ValueGeneratedNever();
-
                 entity.Property(e => e.Email).HasMaxLength(200);
 
                 entity.Property(e => e.FileName).HasMaxLength(50);

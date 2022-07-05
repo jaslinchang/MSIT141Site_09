@@ -27,24 +27,16 @@ namespace MSIT141Site.Controllers
             //Client端根據收到的結果顯示帳號是否存在的訊息
             return View();
         }
-        //public IActionResult CheckName(Member user)
-        //{
-        //    var datas = _context.Members.FirstOrDefault(m => m.Name == user.Name);
-        //    string message = "";
-        //    if (datas != null)
-        //    {
-        //        message = "帳號已存在";
-        //    }
-        //    else
-        //        message = "此帳號可以使用";
 
-        //    return Content(message);
-
-        //}
         public IActionResult CheckAccount(string name)
         {
             var exists = _context.Members.Any(m => m.Name == name);
             return Content(exists.ToString(), "text/plain");
+        }
+
+        public IActionResult HW03()
+        {
+            return View();
         }
     }
 }

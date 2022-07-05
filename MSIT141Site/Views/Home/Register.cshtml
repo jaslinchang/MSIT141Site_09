@@ -34,25 +34,25 @@
     <div class="col-3"></div>
 </div>
 
-
 @section Scripts{
     <script>
     const btnSubmit = document.querySelector('.btn');
-        const divInfo = document.querySelector('#div1');
-        const txtName = document.querySelector('#InputName');
-        txtName.addEventListener('blur', () => {
-            //GET ?name=Jack
-            if (txtName.value.trim() === "") {
-                //顯示錯誤訊息
-            } else {
-                //Ajax
-                if (data == "True") {
-                }
+    const divInfo = document.querySelector('#div1');
+    const txtName = document.querySelector('#InputName');
+    txtName.addEventListener('blur', () => {
+        //GET ?name=Jack
+        if (txtName.value.trim() === "") {
+            //顯示錯誤訊息
+        } else {
+            //Ajax
+            if (data == "True") {
             }
-        })
+        }
+    })
     btnSubmit.addEventListener('click', (evt) => {
         evt.preventDefault(); //停止預設行為 submit link
         const formData = new FormData(document.userInfo);
+
         //透過 fetch() 上傳圖檔
         fetch('@Url.Content("~/api/register")', {
             method: 'POST',
@@ -60,8 +60,10 @@
         })
             .then(response => response.text())
             .then(data => divInfo.innerHTML = data);
-        //透過 XMLHttpRequest 上傳圖檔
-         @*//step1
+
+        //============================================================
+        @*//透過 XMLHttpRequest 上傳圖檔
+        //step1
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('load', () => {
             //step3

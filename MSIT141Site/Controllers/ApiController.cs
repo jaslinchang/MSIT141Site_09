@@ -29,13 +29,15 @@ namespace MSIT141Site.Controllers
             return Content($"Hello {user.name}你好，年紀是{user.age}，電子郵件是{user.email}!!", "text/plain", System.Text.Encoding.UTF8);
         }
 
-        public IActionResult Register(Member member, IFormFile file)
+        public IActionResult Register(Member member, IFormFile file)    //把submit後的資料(formdata)用IFormFile來接收上傳的檔案
         {
             //檔案上傳要有實際路徑
             //C:\Users\Student\Documents\Ajax\MSIT141Site\wwwroot\uploads
             //string path = _host.ContentRootPath; //會取得專案資料夾的實際路徑
-            string path = Path.Combine(_host.WebRootPath, "uploads", file.FileName); 
+
+            string path = Path.Combine(_host.WebRootPath, "uploads", file.FileName);
             //會取得專案資料夾下wwwroot的實際路徑，並用Path.Combine將我的upload資料夾路徑合併
+
             using (var fileStream = new FileStream(path, FileMode.Create))  //用using是為了用完要關掉
             {//透過資料流把檔案存到這個路徑
                 file.CopyTo(fileStream); //儲存檔案到uploads資料夾中
