@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MSIT141Site.Models;
 using System;
@@ -32,6 +33,18 @@ namespace MSIT141Site.Controllers
             return View();
         }
         public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult Address()
+        {
+            return View();
+        }
+        public IActionResult Promise()
+        {
+            return View();
+        }
+        public IActionResult Fetch()
         {
             return View();
         }
