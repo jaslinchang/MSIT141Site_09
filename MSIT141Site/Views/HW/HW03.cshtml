@@ -13,45 +13,53 @@
 @section Scripts{
     <script>
 
-    const selCity = document.querySelector('#select1');
-    const selDistrict = document.querySelector('#select2');
-    const selRoad = document.querySelector('#select3');
+        const selCity = document.querySelector('#select1');
+        const selDistrict = document.querySelector('#select2');
+        const selRoad = document.querySelector('#select3');
 
-    async function LoadCity() {
-        const response1 = await fetch("@Url.Content("~/api/city")");
-        const data1 = await response1.json();
-        data1.forEach(city => {
-            const opt1 = new Option(city, city);
-            selCity.options.add(opt1);
-        })
-    }
-        LoadCity();
-        selCity.addEventListener("change", () => {
-            selDistrict.options.length = 0;
+        async function LoadCity() {
+            const response1 = await fetch("@Url.Content("~/api/city")");
+            const data1 = await response1.json();
+            data1.forEach(city => {
+                const opt1 = new Option(city, city);
+                selCity.options.add(opt1);
+            })
             const selectedCity = selCity.options[selCity.selectedIndex].value;
-            async function LoadDistinct() {
-                const response2 = await fetch("@Url.Content("~/api/districts")" + `?city=${selectedCity}`)
-                const data2 = await response2.json();
-                data2.forEach(district => {
-                    const opt2 = new Option(district, district);
-                    selDistrict.options.add(opt2);
-                })
-            }
-            LoadDistinct();
+            LoadDistinct(selectedCity);
+        }
+
+        async function LoadDistinct(selectedCity) {
+            const response2 = await fetch("@Url.Content("~/api/districts")" + `?city=${selectedCity}`)
+            const data2 = await response2.json();
+            data2.forEach(district => {
+                const opt2 = new Option(district, district);
+                selDistrict.options.add(opt2);
+            })
+            const selectedDistrict = selDistrict.options[selDistrict.selectedIndex].value;
+            LoadRoad(selectedDistrict);
+        }
+
+        async function LoadRoad(selectedDistrict) {
+            const response3 = await fetch("@Url.Content("~/api/roads")" + `?district=${selectedDistrict}`)
+            const data3 = await response3.json();
+            data3.forEach(road => {
+                const opt3 = new Option(road, road);
+                selRoad.options.add(opt3);
+            })
+        }
+
+        LoadCity();
+
+        selCity.addEventListener("change", async () => {
+            selDistrict.options.length = 0;           
+            const selectedCity = selCity.options[selCity.selectedIndex].value;
+            LoadDistinct(selectedCity);
         })
 
-        selDistrict.addEventListener("change", () => {
+        selDistrict.addEventListener("change", async () => {
             selRoad.options.length = 0;
             const selectedDistrict = selDistrict.options[selDistrict.selectedIndex].value;
-            async function LoadRoad() {
-                const response3 = await fetch("@Url.Content("~/api/roads")" + `?district=${selectedDistrict}`)
-                const data3 = await response3.json();
-                data3.forEach(road => {
-                    const opt3 = new Option(road, road);
-                    selRoad.options.add(opt3);
-                })
-            }
-            LoadRoad();
+            LoadRoad(selectedDistrict);
         })
 
 
