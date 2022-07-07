@@ -10,7 +10,9 @@
 <button class="btn btn-primary mb-3" type="button" id="buttonClick2">jQuery</button>
 
 <div id="iddiv">
-    <table class="table table-striped table-hover" id="idtable">
+    <table class="table table-hover" id="idtable">
+        <thead id="idthead"></thead>
+        <tbody id="idtbody"></tbody>
     </table>
 </div>
 
@@ -28,17 +30,19 @@
         //JS
         document.querySelector("#buttonClick").addEventListener("click", CreateTable);
         function CreateTable() {
-            document.querySelector("#idtable").innerHTML = "";
-            Add("Name", "WorkYears", "Salary");
+            document.querySelector("#idthead").innerHTML = "";
+            document.querySelector("#idtbody").innerHTML = "";
+            Add("Name", "WorkYears", "Salary", "#idthead");
 
             emp.employees.forEach(employees => {
                 const { name, workYears, salary } = employees;
-                Add(name, workYears, salary);
+                Add(name, workYears, salary, "#idtbody");
             })
         }
 
-        function Add(name, workYears, salary) {
-            let theTable = document.querySelector("#idtable");
+        function Add(name, workYears, salary,id) {
+            let docFrag = document.createDocumentFragment();
+            let theTable = document.querySelector(id);
             let eletr = document.createElement("tr");
             let eletdn = document.createElement("td");
             let eletdw = document.createElement("td");
@@ -54,12 +58,13 @@
             eletr.appendChild(eletdn);
             eletr.appendChild(eletdw);
             eletr.appendChild(eletds);
-            theTable.appendChild(eletr);
+            docFrag.appendChild(eletr)
+            theTable.appendChild(docFrag);
         }
 
         //jQuery
         $("#buttonClick2").on("click", function () {
-            $("#idtable").empty();
+            $("#idtbody").empty();
             $.each(emp.employees, (index, value) => {
                 const { name, workYears, salary } = value;
                 let eletr = $("<tr></tr>");
@@ -67,9 +72,9 @@
                 let eletdw = `<td>${workYears}</td>`;
                 let eletds = `<td>${salary}</td>`;
                 eletr.append(eletdn, eletdw, eletds);
-                $("#idtable").append(eletr);
+                $("#idtbody").append(eletr);
             })
-
+     
         })
 
     </script>
