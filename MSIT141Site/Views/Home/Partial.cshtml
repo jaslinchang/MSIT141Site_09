@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MSIT141Site.Models.Member>
+<h2>Partial View</h2>
+<hr />
+<p>Form Action:@ViewBag.data</p>
+
+<ul class="list-group">
+
+    @foreach (var member in Model)
+    {
+        <li class="list-group-item">@member.Name</li>
+    }
+
+</ul>

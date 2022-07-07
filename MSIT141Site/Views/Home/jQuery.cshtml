@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "jQuery";
+}
+
+<h1>jQuery</h1>
+<div class="row">
+    <div class="col-4" id="divLeft"></div>
+    <div class="col-8">
+        <button id="buttonGet" class="btn btn-primary">get</button>
+        <button id="buttonPost" class="btn btn-secondary">post</button>
+        <button id="buttonJson" class="btn btn-success">getJson</button>
+        <button id="buttonLoad" class="btn btn-info">load</button>
+        <button id="buttonAjax" class="btn btn-warning">ajax</button>
+        <button id="buttonCors" class="btn btn-danger">cors</button>
+        <div class="alert alert-dark mt-3 w-50" role="alert" id="divAlert"></div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+        $("#divLeft").load('@Url.Content("~/home/Partial")');
+
+        $('#buttonGet').click(function () {
+            $.get('@Url.Content("~/api/index")', { "name": "Jack", "age": 25},
+                function (data) { $('#divAlert').text("GET"); })
+        })
+
+        $('#buttonPost').click(function () {
+            $.post('@Url.Content("~/api/index")', { "name": "Mary", "age": 23},
+                function (data) { $('#divAlert').text("POST"); })
+        })
+
+        $('#buttonJson').click(function () {
+            $.getJSON('@Url.Content("~/api/Districts")', { "city": "臺北市" }, function (datas) {
+                $.each(datas, function(index, value){
+                    console.log(value);
+                })
+            })
+            $('#divAlert').text("JSON")
+        })
+
+        $('#buttonLoad').click(function () {
+            //$('#divAlert').load('@Url.Content("~/home/Partial")');
+            //$('#divAlert').load('@Url.Content("~/home/index")');
+        })
+        $('#buttonAjax').click(function () {
+            $.ajax({
+                url: '@Url.Content("~/api/Districts")',
+                type: 'GET',
+                data: { "city": "臺北市" },
+                dataType: 'json'
+            }).done((datas) => {
+                console.log(datas);
+            })
+            $('#divAlert').text("AJAX")
+        })
+        $('#buttonCors').click(function () {
+            const api = "https://localhost:44370/api/Shippers";
+            $.getJSON(api, function (data) {
+                console.log(data);  //has been blocked by CORS policy:說明被CORS的政策給擋住ㄌ
+            })
+            $('#divAlert').text("CORs")
+        })
+
+    </script>
+}
